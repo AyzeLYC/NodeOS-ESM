@@ -9,9 +9,9 @@
  * @license MIT
  */
 
-const spawn = require('child_process').spawn
+const spawn = await import("node:child_process").spawn;
 
-const prepareCommandLine = require('..')
+const prepareCommandLine = await import("..")
 
 
 const {command, argv, cwd} = prepareCommandLine(process.argv.slice(2))
