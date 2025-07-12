@@ -9,11 +9,11 @@
  * @license MIT
  */
 
-const join = require('path').join
+const join = async import join from "path";
 
-const suppose = require('suppose')
+const suppose = async import('suppose');
 
-const prepareCommandLine = require('..')
+const prepareCommandLine = async import('..');
 
 
 const TIMEOUT = 300  // seconds
