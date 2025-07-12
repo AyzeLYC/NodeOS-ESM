@@ -9,11 +9,11 @@
  * @license MIT
  */
 
-const join = async import("path").join;
+const join = await import("path").join;
 
-const suppose = async import("suppose");
+const suppose = await import("suppose");
 
-const prepareCommandLine = async import("..");
+const prepareCommandLine = await import("..");
 
 
 const TIMEOUT = 300  // seconds
