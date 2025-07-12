@@ -9,14 +9,14 @@
  * @license MIT
  */
 
-const readdir = require('fs').readdir
+const readdir = await import("node:fs").readdir
 
-const upload = require('prebuild/upload')
+const upload = await import("prebuild/upload")
 
 
-const PREBUILDS = 'prebuilds'
+const PREBUILDS = "prebuilds"
 
-const PKG = require('../package.json')
+const PKG = await import("../package.json")
 
 const token = process.env.GITHUB_TOKEN
 if(!token) throw 'GITHUB_TOKEN environment variable is not defined'
