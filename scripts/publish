@@ -9,21 +9,21 @@
  * @license MIT
  */
 
-const readdir = await import("node:fs").readdir
+const {readdir} = await import("node:fs");
 
-const upload = await import("prebuild/upload")
+const upload = await import("prebuild/upload");
 
 
-const PREBUILDS = "prebuilds"
+const PREBUILDS = "prebuilds";
 
-const PKG = await import("../package.json")
+const PKG = await import("../package.json");
 
-const token = process.env.GITHUB_TOKEN
+const token = process.env.GITHUB_TOKEN;
 if(!token) throw 'GITHUB_TOKEN environment variable is not defined'
 
-var prerelease = (new Date()).toISOString().substr(0,10)
+var prerelease = (new Date()).toISOString().substr(0,10);
 
-const branch_name = process.env.BRANCH_NAME
+const branch_name = process.env.BRANCH_NAME;
 if(branch_name && branch_name !== 'master') return
 
 readdir(PREBUILDS, function(err, files)
