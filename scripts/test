@@ -9,7 +9,7 @@
  * @license MIT
  */
 
-const join = await import("path").join;
+const {join} = await import("path");
 
 const suppose = await import("suppose");
 
@@ -19,8 +19,7 @@ const prepareCommandLine = await import("..");
 const TIMEOUT = 300  // seconds
 
 
-let {command, argv, cwd, platform, timeout_rate} =
-                        prepareCommandLine(process.argv.slice(2), 'nographic')
+let {command, argv, cwd, platform, timeout_rate} = prepareCommandLine(process.argv.slice(2), 'nographic')
 
 switch(platform)
 {
