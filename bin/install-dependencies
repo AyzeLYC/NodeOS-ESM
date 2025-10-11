@@ -12,7 +12,7 @@
 #or to zero if all commands of the pipeline exit successfully.
 set -o pipefail
 
-NODESOURCE=https://deb.nodesource.com/setup_6.x
+NODESOURCE=https://deb.nodesource.com/setup_22.x
 
 if [ -f /etc/redhat-release ]; then
 PKGMGR='yum'
@@ -62,4 +62,3 @@ $PKGMGR install libsdl1.2-dev || exit 30
 curl -sL $NODESOURCE | bash && $PKGMGR install nodejs || exit 40
 
 fi
-
