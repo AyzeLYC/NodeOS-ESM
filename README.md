@@ -104,7 +104,7 @@ space and use it as persistent storage.
 1. Download the project source code:
 
    ```bash
-   git clone git@github.com:NodeOS/NodeOS.git
+   git clone https://github.com/NodeOS/NodeOS.git
    cd NodeOS
    ```
 
