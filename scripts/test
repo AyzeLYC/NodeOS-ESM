@@ -16,7 +16,7 @@ let script_type = false; /* false for CommonJS, true for ECMAScript */
 try {
 
     require.main;
-    console.log(`NodeJS is using CommonJS !\nGoing forward in the testing proccess !`);
+    console.log(`NodeJS is using CommonJS !\nGoing forward in the testing process !`);
 
 }; catch(err) {
 
@@ -25,14 +25,14 @@ try {
 
 };
 
-if (import.meta.main) {
+if (script_type) {
 
     dependancies["path"] = await import("node:path");
     dependancies["suppose"] = await import("suppose");
     dependancies["prepareCommandLine"] = await import("..");
 
 };
-if (require.main !== undefined) {
+if (!script_type) {
 
     dependancies["path"] = require("node:path");
     dependancies["suppose"] = require("suppose");
@@ -114,4 +114,5 @@ exe
         process.exit(expects);
         
     };
+    
 });
