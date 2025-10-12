@@ -11,14 +11,28 @@
 
 let dependancies = {};
 
-if (import.meta.main) {
+let script_type = false; /* false for CommonJS, true for ECMAScript */
+
+try {
+
+    require.main;
+    console.log(`NodeJS is using CommonJS !\nGoing forward in the process !`);
+
+} catch(err) {
+
+    script_type = true;
+    console.log(`NodeJS is using ECMAScript !\nGoing forward in the proccess !`);
+
+};
+
+if (script_type) {
 
     dependancies["fs"] = await import("node:fs");
     dependancies["PKG"] = await import("../package.json");
     dependancies["upload"] = await import("prebuild/upload");
 
 };
-if (require.main !== undefined) {
+if (!script_type) {
 
     dependancies["fs"] = require("node:fs");
     dependancies["PKG"] = require("../package.json");
