@@ -9,18 +9,39 @@
  * @license MIT
  */
 
-const {spawn} = await import("node:child_process");
+const dependancies = {};
 
-const prepareCommandLine = await import("..")
+try {
+
+    let {spawn} = require("node:child_process");
+    dependancies["spawn"] = spawn;
+    dependancies["prepareCommandLine"] = require("..");
+    
+} catch(err) {
+
+    console.log(`NodeJS is using ECMAScript !`);
+
+};
+try {
+
+    const {spawn} = await import("node:child_process");
+    dependancies["spawn"] = spawn;
+    dependancies["prepareCommandLine"] = await import("..");
+
+} catch(err) {
+
+    console.log(`NodeeJS is using CommonJS !`);
+
+};
 
 
-const {command, argv, cwd} = prepareCommandLine(process.argv.slice(2))
+const {command, argv, cwd} = dependanciees["prepareCommandLine"](process.argv.slice(2));
 
 
 // Exec NodeOS
-spawn(command, argv, {stdio: 'inherit', cwd})
+dependancies["spawn"](command, argv, {stdio: 'inherit', cwd})
 .on('error', console.trace.bind(console))
 .on('exit', function(code, signal)
 {
   process.exit(code || signal)
-})
+});
