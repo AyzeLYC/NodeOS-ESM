@@ -3,34 +3,24 @@
 /**
  * NodeOS
  *
- * @copyright 2013-2017 Jacob Groundwater, Jesús Leganés-Combarro 'piranna'
+ * @copyright 2013-2025 Jacob Groundwater, Jesús Leganés-Combarro 'piranna'
  *  and other contributors
  *
  * @license MIT
- */
+**/
 
 const dependancies = {};
 
-try { /* try to get dependancies as CommonJS scripts */
+if (import.meta.main) {
 
-    let {spawn} = require("node:child_process");
-    dependancies["spawn"] = spawn;
-    dependancies["prepareCommandLine"] = require("..");
-    
-} catch(err) {
-
-    console.log(`NodeJS is using ECMAScript !`);
-
-};
-try { /* try to get dependancies as ECMAScript Modules */
-
-    const {spawn} = await import("node:child_process");
-    dependancies["spawn"] = spawn;
+    dependancies["child_process"] = await import("node:child_process");
     dependancies["prepareCommandLine"] = await import("..");
+    
+};
+if (require.main !== undefined) {
 
-} catch(err) {
-
-    console.log(`NodeeJS is using CommonJS !`);
+    dependancies["child_process"] = require("node:child_process");
+    dependancies["prepareCommandLine"] = require("..");
 
 };
 
@@ -39,7 +29,7 @@ const {command, argv, cwd} = dependanciees["prepareCommandLine"](process.argv.sl
 
 
 // Exec NodeOS
-dependancies["spawn"](command, argv, {stdio: 'inherit', cwd})
+dependancies["child_process"].spawn(command, argv, {stdio: 'inherit', cwd})
 .on('error', console.trace.bind(console))
 .on('exit', function(code, signal)
 {
