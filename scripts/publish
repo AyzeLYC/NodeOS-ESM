@@ -3,37 +3,56 @@
 /**
  * NodeOS
  *
- * @copyright 2013-2017 Jacob Groundwater, Jesús Leganés-Combarro 'piranna'
+ * @copyright 2013-2025 Jacob Groundwater, Jesús Leganés-Combarro 'piranna'
  *  and other contributors
  *
  * @license MIT
- */
+**/
 
-const {readdir} = await import("node:fs");
+let dependancies = {};
 
-const upload = await import("prebuild/upload");
+if (import.meta.main) {
+
+    dependancies["fs"] = await import("node:fs");
+    dependancies["PKG"] = await import("../package.json");
+    dependancies["upload"] = await import("prebuild/upload");
+
+};
+if (require.main !== undefined) {
+
+    dependancies["fs"] = require("node:fs");
+    dependancies["PKG"] = require("../package.json");
+    dependancies["upload"] = require("prebuild/upload");
+
+};
 
 
 const PREBUILDS = "prebuilds";
 
-const PKG = await import("../package.json");
-
 const token = process.env.GITHUB_TOKEN;
-if(!token) throw 'GITHUB_TOKEN environment variable is not defined'
+if(!token) {
+    
+    throw 'GITHUB_TOKEN environment variable is not defined';
+    
+};
 
 var prerelease = (new Date()).toISOString().substr(0,10);
 
 const branch_name = process.env.BRANCH_NAME;
-if(branch_name && branch_name !== 'master') return
+if(branch_name && branch_name !== 'master') {
+    
+    return;
+    
+};
 
-readdir(PREBUILDS, function(err, files)
+dependancies["fs"].readdir(PREBUILDS, function(err, files)
 {
   if(err) throw err
 
   const opts =
   {
     upload: token,
-    pkg: PKG,
+    pkg: dependancies["PKG"],
     prerelease: prerelease,
     files: files.map(function(file){return PREBUILDS+'/'+file})
   }
@@ -42,4 +61,4 @@ readdir(PREBUILDS, function(err, files)
   {
     if(error) throw error
   })
-})
+});
