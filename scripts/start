@@ -11,7 +11,7 @@
 
 const dependancies = {};
 
-try {
+try { /* try to get dependancies as CommonJS scripts */
 
     let {spawn} = require("node:child_process");
     dependancies["spawn"] = spawn;
@@ -22,7 +22,7 @@ try {
     console.log(`NodeJS is using ECMAScript !`);
 
 };
-try {
+try { /* try to get dependancies as ECMAScript Modules */
 
     const {spawn} = await import("node:child_process");
     dependancies["spawn"] = spawn;
