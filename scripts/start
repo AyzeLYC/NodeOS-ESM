@@ -9,15 +9,29 @@
  * @license MIT
 **/
 
-const dependancies = {};
+let dependancies = {};
 
-if (import.meta.main) {
+let script_type = false; /* false for CommonJS, true for ECMAScript */
+
+try {
+
+    require.main;
+    console.log(`NodeJS is using CommonJS !\nGoing forward in the starting process !`);
+
+} catch(err) {
+
+    script_type = true;
+    console.log(`NodeJS is using ECMAScript !\nGoing forward in the starting process !`);
+
+};
+
+if (script_type) {
 
     dependancies["child_process"] = await import("node:child_process");
     dependancies["prepareCommandLine"] = await import("..");
     
 };
-if (require.main !== undefined) {
+if (!script_type) {
 
     dependancies["child_process"] = require("node:child_process");
     dependancies["prepareCommandLine"] = require("..");
