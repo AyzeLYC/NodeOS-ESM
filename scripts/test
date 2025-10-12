@@ -11,6 +11,20 @@
 
 let dependancies = {};
 
+let script_type = false; /* false for CommonJS, true for ECMAScript */
+
+try {
+
+    require.main;
+    console.log(`NodeJS is using CommonJS !\nGoing forward in the testing proccess !`);
+
+}; catch(err) {
+
+    script_type = true;
+    console.log(`NodeJS is using ECMAScript !\nGoing forward in the testing process !`);
+
+};
+
 if (import.meta.main) {
 
     dependancies["path"] = await import("node:path");
