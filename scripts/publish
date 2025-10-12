@@ -21,7 +21,7 @@ try {
 } catch(err) {
 
     script_type = true;
-    console.log(`NodeJS is using ECMAScript !\nGoing forward in the proccess !`);
+    console.log(`NodeJS is using ECMAScript !\nGoing forward in the process !`);
 
 };
 
@@ -59,20 +59,24 @@ if(branch_name && branch_name !== 'master') {
     
 };
 
-dependancies["fs"].readdir(PREBUILDS, function(err, files)
-{
-  if(err) throw err
+dependancies["fs"].readdir(PREBUILDS, function(err, files) {
+    
+    if (err) {
+        
+        throw err;
+        
+    };
 
-  const opts =
-  {
-    upload: token,
-    pkg: dependancies["PKG"],
-    prerelease: prerelease,
-    files: files.map(function(file){return PREBUILDS+'/'+file})
-  }
+    const opts = { upload: token, pkg: dependancies["PKG"], prerelease: prerelease, files: files.map(function(file){return PREBUILDS+'/'+file}) };
 
-  upload(opts, function(error)
-  {
-    if(error) throw error
-  })
+    upload(opts, function(error) {
+        
+        if (error) {
+            
+            throw error;
+            
+        };
+        
+    });
+   
 });
